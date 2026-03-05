@@ -138,8 +138,14 @@ interface FindingData {
   finders_count: number;
   source_link: string | null;
   github_link: string | null;
-  issues_issue_finders: Array<{ wardens_warden: { handle: string } }>;
-  issues_issuetagscore: Array<{ tags_tag: { title: string } }>;
+  // NOTE: Some Solodit API responses omit these relationship arrays.
+  // Treat missing/null values as "no tags/finders" instead of crashing.
+  issues_issue_finders?: Array<{
+    wardens_warden?: { handle: string | null } | null;
+  }> | null;
+  issues_issuetagscore?: Array<{
+    tags_tag?: { title: string | null } | null;
+  }> | null;
   protocols_protocol: {
     name: string | null;
     protocols_protocolcategoryscore: Array<{
@@ -209,9 +215,13 @@ function findingUrl(slug: string): string {
 }
 
 function formatFindingSummary(f: FindingData): string {
-  const tags = f.issues_issuetagscore.map((t) => t.tags_tag.title).join(", ");
-  const finders = f.issues_issue_finders
-    .map((fi) => fi.wardens_warden.handle)
+  const tags = (f.issues_issuetagscore ?? [])
+    .map((t) => t?.tags_tag?.title ?? null)
+    .filter((t): t is string => typeof t === "string" && t.length > 0)
+    .join(", ");
+  const finders = (f.issues_issue_finders ?? [])
+    .map((fi) => fi?.wardens_warden?.handle ?? null)
+    .filter((h): h is string => typeof h === "string" && h.length > 0)
     .join(", ");
 
   const url = findingUrl(f.slug);
@@ -240,9 +250,13 @@ function formatFindingSummary(f: FindingData): string {
 }
 
 function formatFindingFull(f: FindingData): string {
-  const tags = f.issues_issuetagscore.map((t) => t.tags_tag.title).join(", ");
-  const finders = f.issues_issue_finders
-    .map((fi) => fi.wardens_warden.handle)
+  const tags = (f.issues_issuetagscore ?? [])
+    .map((t) => t?.tags_tag?.title ?? null)
+    .filter((t): t is string => typeof t === "string" && t.length > 0)
+    .join(", ");
+  const finders = (f.issues_issue_finders ?? [])
+    .map((fi) => fi?.wardens_warden?.handle ?? null)
+    .filter((h): h is string => typeof h === "string" && h.length > 0)
     .join(", ");
 
   let categories = "";
