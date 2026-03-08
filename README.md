@@ -44,7 +44,7 @@ Then just ask:
 ```bash
 claude mcp add --scope user --transport stdio solodit \
   --env SOLODIT_API_KEY=sk_your_key_here \
-  -- npx -y @marchev/claudit
+  -- npx -y @marchev/claudit@latest
 
 # (Optional) Install companion skill
 mkdir -p ~/.claude/skills/solodit
@@ -57,7 +57,7 @@ curl -fsSL https://raw.githubusercontent.com/marchev/claudit/main/.claude/skills
 ```bash
 codex mcp add solodit \
   --env SOLODIT_API_KEY=sk_your_key_here \
-  -- npx -y @marchev/claudit
+  -- npx -y @marchev/claudit@latest
 ```
 
 </details>
@@ -133,7 +133,7 @@ Get recent HIGH severity Solidity findings sorted by quality
 claude mcp remove solodit
 claude mcp add --scope user --transport stdio solodit \
   --env SOLODIT_API_KEY=sk_new_key \
-  -- npx -y @marchev/claudit
+  -- npx -y @marchev/claudit@latest
 ```
 
 **Codex CLI:**
@@ -141,7 +141,7 @@ claude mcp add --scope user --transport stdio solodit \
 codex mcp remove solodit
 codex mcp add solodit \
   --env SOLODIT_API_KEY=sk_new_key \
-  -- npx -y @marchev/claudit
+  -- npx -y @marchev/claudit@latest
 ```
 
 **Cursor MCP**
@@ -150,7 +150,7 @@ codex mcp add solodit \
   "mcpServers": {
     "solodit": {
       "command": "npx",
-      "args": ["-y", "@marchev/claudit"],
+      "args": ["-y", "@marchev/claudit@latest"],
       "env": {
         "SOLODIT_API_KEY": "sk_new_key"
       }

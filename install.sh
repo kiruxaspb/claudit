@@ -63,7 +63,7 @@ if [ "$HAS_CLAUDE" = true ]; then
   claude mcp remove solodit 2>/dev/null || true
   claude mcp add --scope user --transport stdio solodit \
     --env "SOLODIT_API_KEY=$API_KEY" \
-    -- npx -y @marchev/claudit >/dev/null 2>&1
+    -- npx -y @marchev/claudit@latest >/dev/null 2>&1
   echo "\r  ${GREEN}✓${RESET} Claude Code     ${DIM}MCP server registered${RESET}"
 
   printf "  ${DIM}Installing skill...${RESET}"
@@ -81,7 +81,7 @@ if [ "$HAS_CODEX" = true ]; then
   codex mcp remove solodit 2>/dev/null || true
   codex mcp add solodit \
     --env "SOLODIT_API_KEY=$API_KEY" \
-    -- npx -y @marchev/claudit >/dev/null 2>&1
+    -- npx -y @marchev/claudit@latest >/dev/null 2>&1
   echo "\r  ${GREEN}✓${RESET} Codex CLI       ${DIM}MCP server registered${RESET}"
 fi
 
